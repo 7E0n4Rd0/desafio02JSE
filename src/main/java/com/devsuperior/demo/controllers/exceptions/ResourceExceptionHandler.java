@@ -23,7 +23,7 @@ public class ResourceExceptionHandler {
     }
 
     @ExceptionHandler(DatabaseException.class)
-    public ResponseEntity<StandardError> databaseException(DatabaseException e, HttpServletRequest request){
+    public ResponseEntity<StandardError> integrityViolation(DatabaseException e, HttpServletRequest request){
         int badRequest = HttpStatus.BAD_REQUEST.value();
         StandardError err = new StandardError(
             Instant.now(), badRequest, "Integrity Violation", e.getMessage(),request.getRequestURI()

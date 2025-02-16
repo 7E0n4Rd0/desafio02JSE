@@ -7,6 +7,7 @@ import com.devsuperior.demo.services.exceptions.DatabaseException;
 import com.devsuperior.demo.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -70,7 +71,7 @@ public class CityService {
         }
         try{
             repository.deleteById(id);
-        }catch (DatabaseException e){
+        }catch (DataIntegrityViolationException e){
             throw new DatabaseException("Integrity Violation");
         }
     }
