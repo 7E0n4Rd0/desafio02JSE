@@ -33,7 +33,6 @@ public class EventService {
 
 
     private void copyDtoToEntity(EventDTO dto, Event entity){
-        entity.setId(dto.getId());
         entity.setName(dto.getName());
         entity.setDate(dto.getDate());
         entity.setUrl(dto.getUrl());

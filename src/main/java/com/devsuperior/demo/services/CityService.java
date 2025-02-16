@@ -76,7 +76,6 @@ public class CityService {
     }
 
     private void copyDtoToEntity(CityDTO dto, City entity){
-        entity.setId(dto.getId());
         entity.setName(dto.getName());
     }
 
