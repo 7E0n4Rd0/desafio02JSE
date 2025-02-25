@@ -7,6 +7,8 @@ import com.devsuperior.demo.repositories.EventRepository;
 import com.devsuperior.demo.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +18,22 @@ public class EventService {
     @Autowired
     private EventRepository repository;
 
+
+    @Transactional(readOnly = true)
+    public Page<EventDTO> findAll(Pageable pageable){
+        Page<EventDTO> page = repository.findAll(pageable).map(EventDTO::new);
+        return page;
+    }
+
+    @Transactional
+    public EventDTO insert(EventDTO dto){
+        Event entity = new Event();
+
+        copyDtoToEntity(dto, entity);
+
+        entity = repository.save(entity);
+        return new EventDTO(entity);
+    }
 
     @Transactional
     public EventDTO update(Long id, EventDTO dto){
